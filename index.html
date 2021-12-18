@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Быстрый старт. Размещение интерактивной карты на странице</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=72f0ddcf-433f-4175-b3cb-67d3ac7a163b
+&lang=ru_RU" type="text/javascript">
+    </script>
+    <script type="text/javascript">
+        ymaps.ready(init);
+        function init(){
+            var myMap = new ymaps.Map("map", {
+                center: [56.35629165414094,37.53348744118393],
+                zoom: 17
+            }, {
+                restrictMapArea: [
+                [56.37519850308864,37.414340423785575],
+                [56.271161941506385,37.562095086911064]
+                ]
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div id="map" style="width: 100vh; height: 100vh"></div>
+</body>
+
+</html>

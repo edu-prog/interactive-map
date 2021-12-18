@@ -1,0 +1,12 @@
+{
+  "name": "interactive-map",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "browser-sync": "^2.27.7"
+  },
+  "scripts": {
+    "start": "browser-sync start --server --files \"*.css, *.html\""
+  }
+}
