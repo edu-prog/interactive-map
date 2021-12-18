@@ -70,13 +70,13 @@ main {
   margin-bottom: 2rem;
 }
 
+.title {
+  font-size: clamp(16px, 5vw, 34px);
+}
+
 @media (max-width: 400px) {
   #map {
     width: 90%;
-  }
-
-  .title {
-    font-size: 4vh;
   }
 
   .legend {
