@@ -3,6 +3,7 @@
 <head>
     <title>Быстрый старт. Размещение интерактивной карты на странице</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="main.css">
     <script src="https://api-maps.yandex.ru/2.1/?apikey=72f0ddcf-433f-4175-b3cb-67d3ac7a163b
 &lang=ru_RU" type="text/javascript">
     </script>
@@ -18,12 +19,33 @@
                 [56.271161941506385,37.562095086911064]
                 ]
             });
+
+            var objects = [
+                new ymaps.Placemark([56.356322565300324,37.536913577351626], {
+                    balloonContentHeader: "Балун метки",
+                    balloonContentBody: "Содержимое <em>балуна</em> метки",
+                    balloonContentFooter: "Подвал",
+                    hintContent: "Хинт метки"
+                }),
+                new ymaps.Placemark([56.3560307028351,37.52294463280206], {
+                    balloonContentHeader: "Балун метки",
+                    balloonContentBody: "Содержимое <em>балуна</em> метки",
+                    balloonContentFooter: "Подвал",
+                    hintContent: "Хинт метки"
+                })
+            ]
+
+            objects.forEach(object => {
+                myMap.geoObjects.add(object);
+            })
         }
     </script>
 </head>
 
 <body>
-    <div id="map" style="width: 100vh; height: 100vh"></div>
+    <main class="main">
+        <div id="map"></div>
+    </main>
 </body>
 
 </html>
