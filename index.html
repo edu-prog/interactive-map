@@ -12,40 +12,126 @@
         function init(){
             var myMap = new ymaps.Map("map", {
                 center: [56.35629165414094,37.53348744118393],
+                controls: [],
                 zoom: 17
             }, {
                 restrictMapArea: [
-                [56.37519850308864,37.414340423785575],
+                [56.37253387387213,37.45719938785124],
                 [56.271161941506385,37.562095086911064]
                 ]
             });
+
+            var touristWay = [
+            [56.35573852305246,37.535829991324725],
+            [56.350542335885024,37.524673551553434],
+            [56.34747963226378,37.5340891253916],
+            [56.34047514185211,37.516081774682874],
+            [56.33746061479771,37.51109214033846],
+            [56.29814036832636,37.50020188483536]
+            ]
 
             var objects = [
                 new ymaps.Placemark([56.356322565300324,37.536913577351626], {
                     balloonContentHeader: "Балун метки",
                     balloonContentBody: "Содержимое <em>балуна</em> метки",
-                    balloonContentFooter: "Подвал",
-                    hintContent: "Хинт метки"
                 }),
-                new ymaps.Placemark([56.3560307028351,37.52294463280206], {
-                    balloonContentHeader: "Балун метки",
-                    balloonContentBody: "Содержимое <em>балуна</em> метки",
-                    balloonContentFooter: "Подвал",
-                    hintContent: "Хинт метки"
+                new ymaps.Placemark([56.35060357588319,37.52444644566006], {
+                    balloonContentHeader: "Памятник погибшим в ВОВ",
+                    balloonContentBody: "<div class='img-box'><img class='img' src='image/1.jpg'/></div>",
+                }, {
+                    iconLayout: 'default#image',
+                    iconImageHref: "icons/monument.svg",
+                    iconImageSize: [24, 24],
+                    iconImageOffset: [-11, -10]
+                }),
+                new ymaps.Placemark([56.34741557181225,37.5341280571741], {
+                    balloonContentHeader: "Памятник погибшим в ВОВ",
+                    balloonContentBody: "<div class='img-box'><img class='img' src='image/2.jpg'/></div>",
+                }, {
+                    iconLayout: 'default#image',
+                    iconImageHref: "icons/monument.svg",
+                    iconImageSize: [24, 24],
+                    iconImageOffset: [-11, -10]
+                }),
+                new ymaps.Placemark([56.340492034075965,37.51599717892231], {
+                    balloonContentHeader: "Город воинской славы",
+                    balloonContentBody: "<div class='img-box'><img class='img' src='image/3.jpg'/></div>",
+                }, {
+                    iconLayout: 'default#image',
+                    iconImageHref: "icons/monument.svg",
+                    iconImageSize: [24, 24],
+                    iconImageOffset: [-11, -10]
+                }),
+                new ymaps.Placemark([56.33748685120515,37.510930524669845], {
+                    balloonContentHeader: "табличка в память о подвиге бронепоезда №73",
+                    balloonContentBody: "<div class='img-box'><img class='img' src='image/4.jpg'/></div>",
+                }, {
+                    iconLayout: 'default#image',
+                    iconImageHref: "icons/monument.svg",
+                    iconImageSize: [24, 24],
+                    iconImageOffset: [-11, -10]
+                }),
+                new ymaps.Placemark([56.298024041343794,37.500137511819], {
+                    balloonContentHeader: "Перемиловская высота",
+                    balloonContentBody: "<div class='img-box'><img class='img' src='image/5.jpg'/></div>",
+                }, {
+                    iconLayout: 'default#image',
+                    iconImageHref: "icons/monument.svg",
+                    iconImageSize: [24, 24],
+                    iconImageOffset: [-11, -10]
                 })
             ]
+
+            var multiRoute = new ymaps.multiRouter.MultiRoute({
+                referencePoints: touristWay,
+                params: {
+                    boundsAutoApply: true,
+                    reverseGeocoding: false,
+                    routingMode: 'pedestrian',
+                }
+            }, {
+                wayPointVisible: false,
+                routeActiveStrokeWidth: 8,
+                routeActiveStrokeStyle: 'solid',
+                routeActiveStrokeColor: "#002233",
+                routeActiveMarkerVisible: false,
+                routeOpenBalloonOnClick: false,
+            });
 
             objects.forEach(object => {
                 myMap.geoObjects.add(object);
             })
+    
+            myMap.geoObjects.add(multiRoute);
+
+           
         }
     </script>
 </head>
 
 <body>
     <main class="main">
+        <h1>Туристический маршрут</h1>
         <div id="map"></div>
+        <div class="legend">
+            <h2 class="legend-title">Условные обозначения</h2>
+
+            <div class="legend-items">
+                <div class="legend-item">
+                    <img src="icons/monument.svg" alt="">
+                    <div>Монумент</div>
+                </div>
+            </div>
+
+        </div>
     </main>
+    <footer class="footer">
+        <div class="footer-wrapper">
+            Работу выполнили ученики: <em>....</em>
+            <br>
+            Руководитель: <em>...</em>
+        </div>
+    </footer>
 </body>
 
 </html>
