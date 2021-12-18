@@ -69,3 +69,13 @@ main {
   margin-left: 2rem;
   margin-bottom: 2rem;
 }
+
+@media (max-width: 400px) {
+  #map {
+    width: 90%;
+  }
+
+  .footer-wrapper {
+    width: 90%;
+  }
+}
