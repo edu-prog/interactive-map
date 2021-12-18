@@ -75,6 +75,14 @@ main {
     width: 90%;
   }
 
+  .legend {
+    width: 90%;
+  }
+
+  .footer {
+    margin-top: 2rem;
+  }
+
   .footer-wrapper {
     width: 90%;
   }
