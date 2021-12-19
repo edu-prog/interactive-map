@@ -2,137 +2,213 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Карта экскурсии, посвященной 80-летию битвы под Москвой</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="main.css">
-    <script src="https://api-maps.yandex.ru/2.1/?apikey=72f0ddcf-433f-4175-b3cb-67d3ac7a163b
-&lang=ru_RU" type="text/javascript">
-    </script>
-    <script type="text/javascript">
-        ymaps.ready(init);
-        function init(){
-            var myMap = new ymaps.Map("map", {
-                center: [56.35629165414094,37.53348744118393],
-                controls: [],
-                zoom: 17
-            }, {
-                restrictMapArea: [
-                [56.37253387387213,37.45719938785124],
-                [56.271161941506385,37.562095086911064]
-                ]
-            });
+    <link rel="stylesheet" href="main.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+          integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+          crossorigin="" />
 
-            var touristWay = [
-            [56.35573852305246,37.535829991324725],
-            [56.350542335885024,37.524673551553434],
-            [56.34747963226378,37.5340891253916],
-            [56.34047514185211,37.516081774682874],
-            [56.33746061479771,37.51109214033846],
-            [56.29814036832636,37.50020188483536]
-            ]
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+            integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+            crossorigin=""></script>
 
-            var objects = [
-                new ymaps.Placemark([56.35060357588319,37.52444644566006], {
-                    balloonContentHeader: "Памятник погибшим в ВОВ",
-                    balloonContentBody: "<div class='img-box'><img class='img' src='image/1.jpg'/></div>",
-                }, {
-                    iconLayout: 'default#image',
-                    iconImageHref: "icons/monument.svg",
-                    iconImageSize: [24, 24],
-                    iconImageOffset: [-11, -10]
-                }),
-                new ymaps.Placemark([56.34741557181225,37.5341280571741], {
-                    balloonContentHeader: "Памятник погибшим в ВОВ",
-                    balloonContentBody: "<div class='img-box'><img class='img' src='image/2.jpg'/></div>",
-                }, {
-                    iconLayout: 'default#image',
-                    iconImageHref: "icons/monument.svg",
-                    iconImageSize: [24, 24],
-                    iconImageOffset: [-11, -10]
-                }),
-                new ymaps.Placemark([56.340492034075965,37.51599717892231], {
-                    balloonContentHeader: "Город воинской славы",
-                    balloonContentBody: "<div class='img-box'><img class='img' src='image/3.jpg'/></div>",
-                }, {
-                    iconLayout: 'default#image',
-                    iconImageHref: "icons/monument.svg",
-                    iconImageSize: [24, 24],
-                    iconImageOffset: [-11, -10]
-                }),
-                new ymaps.Placemark([56.33748685120515,37.510930524669845], {
-                    balloonContentHeader: "табличка в память о подвиге бронепоезда №73",
-                    balloonContentBody: "<div class='img-box'><img class='img' src='image/4.jpg'/></div>",
-                }, {
-                    iconLayout: 'default#image',
-                    iconImageHref: "icons/monument.svg",
-                    iconImageSize: [24, 24],
-                    iconImageOffset: [-11, -10]
-                }),
-                new ymaps.Placemark([56.298024041343794,37.500137511819], {
-                    balloonContentHeader: "Перемиловская высота",
-                    balloonContentBody: "<div class='img-box'><img class='img' src='image/5.jpg'/></div>",
-                }, {
-                    iconLayout: 'default#image',
-                    iconImageHref: "icons/monument.svg",
-                    iconImageSize: [24, 24],
-                    iconImageOffset: [-11, -10]
-                })
-            ]
-
-            var multiRoute = new ymaps.multiRouter.MultiRoute({
-                referencePoints: touristWay,
-                params: {
-                    boundsAutoApply: true,
-                    reverseGeocoding: false,
-                    routingMode: 'pedestrian',
-                }
-            }, {
-                wayPointVisible: false,
-                routeActiveStrokeWidth: 4,
-                routeActiveStrokeStyle: 'solid',
-                routeActiveStrokeColor: "#002233",
-                routeActiveMarkerVisible: false,
-                routeOpenBalloonOnClick: false,
-            });
-
-            objects.forEach(object => {
-                myMap.geoObjects.add(object);
-            })
-    
-            myMap.geoObjects.add(multiRoute);
-
-           
-        }
-    </script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+    <script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
+    <link href='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' rel='stylesheet' />
 </head>
 
 <body>
-    <main class="main">
-        <h1 class="title">Туристический маршрут</h1>
-        <div id="map"></div>
-        <div class="legend">
-            <h2 class="legend-title">Условные обозначения</h2>
+<main class="main">
+    <h1 class="title">Туристический маршрут</h1>
+    <div id="map"></div>
+    <div id="distancetravelled"></div>
+    <div class="legend">
+        <h2 class="legend-title">Условные обозначения</h2>
 
-            <div class="legend-items">
-                <div class="legend-item">
-                    <img src="icons/monument.svg" alt="">
-                    <div>Монумент</div>
-                </div>
+        <div class="legend-items">
+            <div class="legend-item">
+                <img src="icons/monument.svg" alt="">
+                <div>Монумент</div>
             </div>
-
         </div>
-    </main>
-    <footer class="footer">
-        <div class="footer-wrapper">
-            Работу выполнили:
-            <br>
-            <div style="margin-left: 2rem;">...</div>
-            <br>
-            Руководитель: 
-            <br>
-            <div style="margin-left: 2rem;">...</div>
-        </div>
-    </footer>
+    </div>
+</main>
+<footer class="footer">
+    <div class="footer-wrapper">
+        Работу выполнили:
+        <br>
+        <div style="margin-left: 2rem;">...</div>
+        <br>
+        Руководитель:
+        <br>
+        <div style="margin-left: 2rem;">...</div>
+    </div>
+</footer>
 </body>
+
+<script>
+    const mymap = L.map('map')
+        .setView([56.355785785662256,37.535870403633595], 13);
+
+    L.mapbox.accessToken = 'pk.eyJ1IjoidmFzaWx5LXN2aXJpZG92IiwiYSI6ImNreGRpa2p6ZTE2MXUycHBnNDZ2anNkeTAifQ.LV3Q1XI5FWk7pmRhiSmzbg';
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution:
+            '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(mymap)
+
+    const createPopUp = (position, content) => {
+        const popupContent = `
+            <div class="popup-header">
+                <h2>${content.title}</h2>    
+            </div>
+            
+            <div class="popup-body">
+                <img src="image/${content.image}" alt="">
+                <span>${content.description}</span>
+            </div>
+        `;
+
+        L.marker(position, {
+            icon: L.icon({
+                iconUrl: "icons/monument.svg",
+                iconSize: [24, 24],
+                popupAnchor: [10, 10],
+            })
+        }).addTo(mymap)
+            .bindPopup(popupContent);
+    }
+
+    createPopUp([56.35060073224442,37.52444380354225],
+        {
+            title: "Памятник Погибшим в ВОВ",
+            image: "1.jpg",
+            description: "",
+        })
+
+    createPopUp([56.347413514190585,37.53413058120579],
+        {
+            title: "Мемориал ВОВ",
+            image: "2.jpg",
+            description: "",
+        })
+
+    createPopUp([56.340491580503475,37.515995836137925],
+        {
+            title: "Город воинской славы",
+            image: "3.jpg",
+            description: "",
+        })
+
+    createPopUp([56.33736718920729,37.51087899437034],
+        {
+            title: "Экипажу бронепоезда №73",
+            image: "4.jpg",
+            description: "",
+        })
+
+    createPopUp([56.29803913674587,37.500136093362215],
+        {
+            title: "Перемиловская высота",
+            image: "5.jpg",
+            description: "",
+        })
+
+
+    L.polyline([
+        [56.35560837134272,37.53571063695382],
+        [56.35608786382656,37.534519736151196],
+        [56.35525693822399,37.53309280095529],
+        [56.35520928602529,37.531880442480556],
+        [56.35437834119825,37.53117770371864],
+        [56.35418177094546,37.53080755887459],
+        [56.35356227015937,37.530330125669934],
+        [56.35344909103937,37.5304481428666],
+        [56.35307976735437,37.53021747289131],
+        [56.35298147899441,37.5302657526536],
+        [56.35260321535702,37.5298365992112],
+        [56.35272533237618,37.52960056481789],
+        [56.35255258135587,37.528710071424946],
+        [56.352475140988254,37.52863496957253],
+        [56.35222494795215,37.52773911176156],
+        [56.35132543080272,37.52712756810617],
+        [56.35132543080272,37.52699882207346],
+        [56.35035142629037,37.526440922598354],
+        [56.3503156825304,37.52633363423775],
+        [56.35017270715409,37.526215617041096],
+        [56.35050929416128,37.524482910017475],
+        [56.349223612079,37.53092410666178],
+        [56.34862190310386,37.53141763312051],
+        [56.3483299814543,37.531911159579245],
+        [56.347778898755855,37.53088119131754],
+        [56.347266533615525,37.53185751539896],
+        [56.34703715860977,37.532984043185216],
+        [56.34745718191694,37.534030104701024],
+    ]).addTo(mymap);
+
+    L.polyline([
+        [56.34726057584068,37.531853299752754],
+        [56.34751675931489,37.53041563572079],
+        [56.34577052635328,37.52743734565744],
+        [56.34593735023902,37.52702964988718],
+        [56.34580031638663,37.52676142898571],
+        [56.34581372189399,37.52666755167017],
+        [56.34567370858365,37.526587085399726],
+        [56.346260256086346,37.52376116562506],
+        [56.343984354913765,37.52226777297963],
+        [56.34360153290799,37.52161197287551],
+        [56.34363430381434,37.52149932009688],
+        [56.34330008885129,37.52010269337189], // here needs to change
+        [56.34331498483948,37.51938587012098],
+        [56.343474811180904,37.51840860341033],
+        [56.34050865725214,37.51636218004209],
+        [56.34047724214156,37.51604111628734],
+        [56.34038190059538,37.51600624757014],
+        [56.34032976058614,37.51623959975444],
+        [56.33904411429722,37.51542957263195],
+        [56.33863293666263,37.51514257626736],
+        [56.3381919586026,37.51457126574719],
+        [56.33770926053518,37.513109461834055],
+        [56.33756921735577,37.51294584708415],
+        [56.33778673100846,37.51145185666286],
+        [56.33770628089844,37.51117827134336],
+        [56.33722804617339,37.510936872532014],
+        [56.33700754963123,37.51213045554363],
+        [56.337129716792376,37.512570337822076],
+        [56.3367244778705,37.513326720764276],
+        [56.33643693439682,37.51302899556361],
+        [56.33386682055834,37.5097585677346],
+        [56.33394727879672,37.50956544868552],
+        [56.33262646476898,37.507818717314855],
+        [56.331124079915334,37.50455565945135],
+        [56.32992061598086,37.50269196606009],
+        [56.325299379881365,37.49773543651185],
+        [56.32435478018799,37.49719371981655],
+        [56.32117539035802,37.49641098585187],
+        [56.321041248138755,37.49656655397473],
+        [56.31860967920359,37.49560496172534],
+        [56.314600779340736,37.494301066272776],
+        [56.310828577490675,37.49323100579908],
+        [56.31089417580338,37.49333561195064],
+        [56.31086584927313,37.49377012981106],
+        [56.31066607209244,37.493960566651126],
+        [56.31063774539233,37.494328029286166],
+        [56.30994863861184,37.49531724719708],
+        [56.30951776418831,37.49691852597895],
+        [56.30941034928049,37.49995797475018],
+        [56.3065709478352,37.49983309546288],
+        [56.305666999440135,37.49953174586008],
+        [56.30560437426695,37.49981069559763],
+        [56.3054940344253,37.49998235697458],
+        [56.29960093513674,37.50173018344465],
+        [56.2993638157813,37.500235822247475],
+        [56.298728804361296,37.50055346875194],
+        [56.298068003056216,37.500169912862795],
+    ]).addTo(mymap);
+</script>
 
 </html>
