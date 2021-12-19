@@ -52,8 +52,17 @@
 </body>
 
 <script>
-    const mymap = L.map('map')
+    const bounds = L.latLngBounds(L.latLng(56.37048477202762,37.47002239032354), L.latLng(56.2854773637066,37.56394947366741));
+
+
+    const mymap = L.map('map', {
+        maxBounds: bounds,
+        minZoom: 13,
+    })
         .setView([56.355785785662256,37.535870403633595], 13);
+
+    // mymap.setMaxBounds(mymap.getBounds());
+
 
     L.mapbox.accessToken = 'pk.eyJ1IjoidmFzaWx5LXN2aXJpZG92IiwiYSI6ImNreGRpa2p6ZTE2MXUycHBnNDZ2anNkeTAifQ.LV3Q1XI5FWk7pmRhiSmzbg';
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
